@@ -39,6 +39,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 ]
 
+"""
+IMPORTANT: The order in which middleware are placed in the MIDDLEWARE list is the order in which they will be processed. That means specific middleware must go above others, or else unexpected behavior may occur.
+"""
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
