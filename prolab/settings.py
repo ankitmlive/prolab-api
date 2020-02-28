@@ -37,9 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'accounts',
 ]
 
 """
+THIS LINE IS ADDED by ME
 IMPORTANT: The order in which middleware are placed in the MIDDLEWARE list is the order in which they will be processed. That means specific middleware must go above others, or else unexpected behavior may occur.
 """
 
@@ -79,8 +82,13 @@ WSGI_APPLICATION = 'prolab.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        #'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'prolab',
+        'USER': 'ankit',
+        'PASSWORD': '',
+        'HOST': '192.168.64.4',
+        'PORT': '5432',
     }
 }
 
