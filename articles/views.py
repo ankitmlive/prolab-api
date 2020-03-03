@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 
 from articles.models import Article
-from articles.serializers import ArticleListSerializer, ArticleCreateUpdateSerializer
+from articles.serializers import ArticleListSerializer, ArticleCreateUpdateSerializer, ArticleDetailSerializer
 
 class ArticleList(generics.ListAPIView):
     serializer_class = ArticleListSerializer
@@ -32,3 +32,10 @@ class ArticleCreate(generics.CreateAPIView):
 
     #def perform_create(self, serializer):
      #   serializer.save(user=self.request.user)
+
+class ArticleDetailAPIView(generics.RetrieveAPIView):
+    queryset = Article.objects.all()
+    serializer_class = ArticleDetailSerializer
+    lookup_field = 'slug'
+    #permission_classes = [AllowAny]
+    #lookup_url_kwarg = "abc"
