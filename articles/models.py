@@ -17,6 +17,7 @@ class Article(models.Model):
     read_time =  models.IntegerField(default=0)
     is_active = models.BooleanField(default=True, blank=True)
     #catags = models.ManyToManyField('catags.Catag', related_name='articles')
+    #author = models.ForeignKey('auth.User', related_name='articles')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     timestamp = models.DateTimeField(auto_now=False, auto_now_add=True)
