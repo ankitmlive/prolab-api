@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from articles.models import Article
 from articles.serializers import ArticleListSerializer, ArticleCreateUpdateSerializer, ArticleDetailSerializer
 
-class ArticleList(generics.ListAPIView):
+class ArticleListAPIView(generics.ListAPIView):
     serializer_class = ArticleListSerializer
     #filter_backends= [SearchFilter, OrderingFilter]
     #permission_classes = [AllowAny]
@@ -25,7 +25,7 @@ class ArticleList(generics.ListAPIView):
         #             ).distinct()
         return queryset_list
 
-class ArticleCreate(generics.CreateAPIView):
+class ArticleCreateAPIView(generics.CreateAPIView):
     queryset = Article.objects.all()
     serializer_class = ArticleCreateUpdateSerializer
     #permission_classes = [IsAuthenticated]
