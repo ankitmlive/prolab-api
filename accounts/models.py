@@ -7,11 +7,13 @@ from django.utils import timezone
 from .managers import CustomUserManager
 
 class ProUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(_('email address'), unique=True)
-    name = models.CharField(max_length=254, null=True, blank=True)
+    fullname = models.CharField(_('full name'), max_length=50, blank=True)
+    username = models.CharField(max_length=15, null=False, unique=True)
+    email     = models.EmailField(verbose_name='email address', max_length=255, unique=True)
     is_staff = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=True)
-    date_joined = models.DateTimeField(default=timezone.now)
+    is_active = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
@@ -21,3 +23,6 @@ class ProUser(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+    def get_name(self):
+        return self.name
