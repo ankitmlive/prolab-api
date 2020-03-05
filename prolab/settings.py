@@ -37,8 +37,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
-    #'accounts',
+    'rest_framework.authtoken',
+    
+    'accounts',
     #'catags',
     'articles',
 ]
@@ -77,6 +80,9 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'prolab.wsgi.application'
+
+#Custom users setting
+AUTH_USER_MODEL = 'accounts.ProUser'
 
 
 # Database
