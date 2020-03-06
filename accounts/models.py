@@ -11,15 +11,21 @@ class ProUser(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=20, null=False, unique=True)
     email     = models.EmailField(verbose_name='email address', max_length=255, unique=True)
 
-    # is_staff = models.BooleanField(default=False)
-    # is_active = models.BooleanField(default=False)
-    # last_login = models.DateTimeField(auto_now_add=True)
-    # created_at = models.DateTimeField(auto_now_add=True)
-    # updated_at = models.DateTimeField(auto_now=True)
+    # password field supplied by AbstractBaseUser
+    # last_login field supplied by AbstractBaseUser
+    # is_superuser field provided by PermissionsMixin
+    # groups field provided by PermissionsMixin
+    # user_permissions field provided by PermissionsMixin
+
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
+    last_login = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     USERNAME_FIELD = 'email'
     EMAIL_FIELD = 'email'
-    REQUIRED_FIELDS = ['fullname', 'username', 'email',]
+    REQUIRED_FIELDS = ['fullname', 'username',]
 
     objects = CustomUserManager()
 

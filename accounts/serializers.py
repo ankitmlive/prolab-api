@@ -28,11 +28,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
         style={'input_type': 'password'}
     )
 
-    # password_2 = serializers.CharField(
-    #     required=True,
-    #     label="Confirm Password",
-    #     style={'input_type': 'password'}
-    # )
+    password_2 = serializers.CharField(
+        required=True,
+        label="Confirm Password",
+        style={'input_type': 'password'}
+    )
 
     fullname = serializers.CharField(
         required=True
