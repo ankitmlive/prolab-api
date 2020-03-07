@@ -11,10 +11,6 @@ class CustomUserManager(BaseUserManager):
         """
         Create and save a User with the given email and password.
         """
-        # now = timezone.now()
-        # extra_fields.setdefault('is_staff', False)
-        # extra_fields.setdefault('is_superuser', False)
-        # extra_fields.setdefault('is_active', False)
 
         if not fullname:
             raise ValueError(_('The fullname must be set'))
@@ -25,12 +21,7 @@ class CustomUserManager(BaseUserManager):
         email = self.normalize_email(email)
         user = self.model(email=email,
                           username = username,
-                          fullname = fullname
-                        #   is_staff = is_staff,
-                        #   is_superuser = is_superuser,
-                        #   last_login = now,
-                        #   created_at = now,
-                        #   updated_at = now,
+                          fullname = fullname,
                           **extra_fields)
         user.set_password(password)
         user.save()
