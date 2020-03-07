@@ -14,5 +14,5 @@ class RegisterView(generics.CreateAPIView):
 
     #permission_classes = (permissions.AllowAny,)
     queryset = ProUser.objects.all()
-    serializer_class = serializers.RegistrationSerializer
+    serializer_class = serializers.UserRegistrationSerializer
     

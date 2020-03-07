@@ -5,6 +5,7 @@ from django.db.models import Q
 from django.conf import settings
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+from django.contrib.auth.hashers import make_password
 
 from accounts.models import ProUser
 
@@ -15,28 +16,12 @@ class UserSerializer(serializers.ModelSerializer):
         model = ProUser
         fields = ('email', 'username', 'fullname', 'is_active', 'created_at', 'updated_at',)
 
-class RegistrationSerializer(serializers.ModelSerializer):
-
-    email = serializers.EmailField(
-        required=True,
-        label="Email Address"
-    )
-
-    password = serializers.CharField(
-        required=True,
-        label="Password",
-        style={'input_type': 'password'}
-    )
-
-    password_2 = serializers.CharField(
-        required=True,
-        label="Confirm Password",
-        style={'input_type': 'password'}
-    )
-
-    fullname = serializers.CharField(
-        required=True
-    )
+class UserRegistrationSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True, label="Email Address")
+    username = serializers.CharField(max_length=200)
+    password = serializers.CharField(required=True, label="Password", style={'input_type': 'password'})
+    password_2 = serializers.CharField(required=True, label="Confirm Password", style={'input_type': 'password'})
+    fullname = serializers.CharField(required=True)
 
     def validate_password_2(self, value):
         data = self.get_initial()
@@ -54,28 +39,20 @@ class RegistrationSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Email already exists.")
         return value
 
-    def validate_password(self, value):
-        if len(value) < getattr(settings, 'PASSWORD_MIN_LENGTH', 8):
-            raise serializers.ValidationError(
-                "Password should be atleast %s characters long." % getattr(settings, 'PASSWORD_MIN_LENGTH', 8)
-            )
-        return value
-
-
     def validate_username(self, value):
         if ProUser.objects.filter(username=value).exists():
-            raise serializers.ValidationError("Email already exists.")
+            raise serializers.ValidationError("Username already exists.")
         return value
 
+    def validate_password(self, value):
+        if len(value) < getattr(settings, 'PASSWORD_MIN_LENGTH', 8):
+            raise serializers.ValidationError("Password should be atleast %s characters long." % getattr(settings, 'PASSWORD_MIN_LENGTH', 8))
+        return value
 
-    # def create(self, validated_data):
-    #     user_data = {
-    #         'username': validated_data.get('username'),
-    #         'email': validated_data.get('email'),
-    #         'password': validated_data.get('password'),
-    #         'fullname': validated_data.get('fullname'),
-    #     }
-
-       # is_active = False
-
-        #return validated_data
+    def create(self, validated_data):
+        user = ProUser.objects.create_user(
+        email=validated_data['email'],
+        username=validated_data['username'],
+        fullname=validated_data['fullname'],
+        password=make_password(validated_data['password']))
+        return user
