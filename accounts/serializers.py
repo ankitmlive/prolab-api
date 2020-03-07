@@ -32,7 +32,7 @@ class UserRegistrationSerializer(serializers.Serializer):
 
     class Meta(object):
         model = ProUser
-        fields = ('username', 'email', 'password', 'fullname',)
+        fields = ('username', 'email', 'password', 'password_2', 'fullname',)
 
     def validate_email(self, value):
         if ProUser.objects.filter(email=value).exists():
@@ -50,9 +50,15 @@ class UserRegistrationSerializer(serializers.Serializer):
         return value
 
     def create(self, validated_data):
-        user = ProUser.objects.create_user(
-        email=validated_data['email'],
-        username=validated_data['username'],
-        fullname=validated_data['fullname'],
-        password=make_password(validated_data['password']))
-        return user
+        fullname = validated_data['fullname']
+        username = validated_data['username']
+        email    = validated_data['email']
+        password = validated_data['password']
+        user_obj = ProUser(
+                username = username,
+                email = email,
+                fullname = fullname,
+            )
+        user_obj.set_password(password)
+        user_obj.save()
+        return validated_data
