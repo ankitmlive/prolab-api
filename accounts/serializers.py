@@ -33,6 +33,7 @@ class UserRegistrationSerializer(serializers.Serializer):
     class Meta(object):
         model = ProUser
         fields = ('username', 'email', 'password', 'password_2', 'fullname',)
+        write_only_fields = ('password',)
 
     def validate_email(self, value):
         if ProUser.objects.filter(email=value).exists():
