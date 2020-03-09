@@ -1,5 +1,4 @@
 from rest_framework import generics
-
 from accounts.models import ProUser
 from . import serializers
 

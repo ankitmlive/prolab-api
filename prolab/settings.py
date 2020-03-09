@@ -51,6 +51,12 @@ THIS LINE IS ADDED by ME
 IMPORTANT: The order in which middleware are placed in the MIDDLEWARE list is the order in which they will be processed. That means specific middleware must go above others, or else unexpected behavior may occur.
 """
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',  # <-- And here
+    ],
+}
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

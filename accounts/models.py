@@ -17,6 +17,9 @@ class ProUser(AbstractBaseUser, PermissionsMixin):
     # groups field provided by PermissionsMixin
     # user_permissions field provided by PermissionsMixin
 
+    # activation_key = models.CharField(max_length=255, default=1)
+    # email_validated = models.BooleanField(default=False)
+
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     last_login = models.DateTimeField(auto_now_add=True)
