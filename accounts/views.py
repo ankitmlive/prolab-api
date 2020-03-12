@@ -16,8 +16,10 @@ class RegisterView(generics.CreateAPIView):
     """
     Endpoint for user registration.
     """
-
     #permission_classes = (permissions.AllowAny,)
     queryset = ProUser.objects.all()
     serializer_class = serializers.UserRegistrationSerializer
-    
+
+class LoginView(generics.APIView):
+    queryset = ProUser.objects.all()
+    serializer_class = serializers.UserLoginSerializer
