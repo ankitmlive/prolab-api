@@ -63,3 +63,6 @@ class UserRegistrationSerializer(serializers.Serializer):
         user_obj.set_password(password)
         user_obj.save()
         return validated_data
+
+class VerifyEmailSerializer(serializers.Serializer):
+    key = serializers.CharField()

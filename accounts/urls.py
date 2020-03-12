@@ -1,10 +1,9 @@
 from django.urls import include, path
-from rest_framework.authtoken.views import obtain_auth_token
+from django.views.generic import TemplateView
 from . import views
 
 urlpatterns = [
     path('', views.UserListView.as_view()),
     path('register/', views.RegisterView.as_view(), name='register-user'),
-    path('get-token/', obtain_auth_token, name='get-token'),
-    path('login/', views.LoginView.as_view(), name='user-login'),
+    path('verify-email/', views.VerifyEmailView.as_view(), name='verify-email'),
 ]
