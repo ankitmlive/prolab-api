@@ -13,7 +13,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
 class ArticleCreateUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Article
-        fields = fields = ('title',  'content', 'created_at')
+        fields = ('title',  'content')
 
 class ArticleDetailSerializer(serializers.ModelSerializer):
     url = post_detail_url
